@@ -6,6 +6,8 @@ An AI skill that interviews you about your software project — what it should d
 
 The difference between "build me a delay plugin" and a clean 200-line implementation vs. a bloated 2,000-line one? Usually a 20-minute conversation upfront.
 
+Watch how it works here: https://youtu.be/ky9dfycg1J8
+
 ---
 
 ## What It Produces
