@@ -1,76 +1,81 @@
-# TAP Audio Plugin Project Planner
+# TAP Code Project Planner
 
-**Plan the audio plugin before building it.**
+**Plan what you're building before you build it.**
 
-An Agent Skill that interviews you about an audio-plugin project — what it should do, what it should not do, and the technical details that matter — then produces a focused Product Requirements Document (PRD) for an AI coding agent to follow.
+An AI skill that interviews you about your audio plugin project — what it should do, what it shouldn't, and the specific details that matter — then generates a focused PRD (Product Requirements Document) and optional AGENTS.md that AI coding tools can follow precisely.
 
-The difference between “build me a delay plugin” and a clean, focused implementation versus a bloated one is often a short planning conversation up front.
+The difference between "build me a delay plugin" and a clean 200-line implementation vs. a bloated 2,000-line one? Usually a 20-minute conversation upfront.
 
-Watch the original project demonstration: https://youtu.be/ky9dfycg1J8
+Watch how it works here: https://youtu.be/ky9dfycg1J8
 
 ---
 
 ## What It Produces
 
-**PRD.md** (always) — A short, structured document defining the goal, controls and exact parameter values, plugin behaviour, target formats/platforms, and explicitly deferred features.
+**PRD** (always) — A short, structured document that defines the goal, features with exact parameters, key behaviours, target formats and platforms, and what's explicitly out of scope. Designed for AI coding tools to consume, not to align a product team.
 
-**AGENTS.md** (new projects, optional) — Project guidance for an AI coding agent: the selected stack, architecture boundaries, real-time audio constraints, and project-specific rules.
-
-Both documents are designed to be concise, specific, and directly useful during implementation.
+**AGENTS.md** (new projects, optional) — A settings file that tells AI coding tools your tech stack, architecture preferences, real-time constraints, code style, and project constraints. Think of it as onboarding a new team member before they write their first line of code.
 
 ## How It Works
 
-The skill follows a guided interview:
+The skill runs a guided interview in a strict sequence:
 
-1. **New or existing?** — Distinguishes a new plugin from a feature in an existing codebase.
-2. **Plugin type** — Establishes whether this is an effect, instrument, utility, MIDI effect, or standalone audio application.
-3. **Core controls and features** — Captures precise ranges, defaults, units, automation expectations, and DSP safety constraints.
-4. **The unusual question** — Asks what is distinctive about this particular plugin.
-5. **Confirmation and scope boundary** — Confirms the feature set and records what is explicitly out of scope.
-6. **Formats and technology** — Captures target hosts and platforms, then presents framework-versus-SDK trade-offs only after the product is clear.
-7. **Generate and hand off** — Produces `PRD.md` and, for new projects, optionally `AGENTS.md`.
+1. **Orient** — Calibrates to your experience level (beginner or experienced)
+2. **New or existing?** — Determines whether to generate an AGENTS.md
+3. **Plugin type** — Identifies whether you're building an effect, instrument, utility, MIDI tool, or standalone audio application
+4. **Core features** — Captures what the plugin does with specific names, types, ranges, defaults, units, and safety constraints
+5. **The quirky question** — Asks what's unusual about *your* version of this plugin (the features that standard questions miss)
+6. **Confirmation gate** — Ensures nothing is missing before moving on
+7. **Out of scope** — Defines what the project should not do, preventing AI tools from over-building
+8. **Technology choices** — Framework, SDK, language, format, and platform decisions, presented as trade-offs rather than rankings
+9. **Generate** — Outputs the PRD (and optionally AGENTS.md)
+10. **Handoff** — Explains how to use the documents with an AI coding tool
 
-The technology guide covers the two layers that are easy to conflate in audio development: choosing between a framework and a direct SDK, then choosing the appropriate option within that path. It presents trade-offs rather than ranking tools.
+## Domain Support
 
-## Audio Plugin Support
+The skill includes a specialized interview template for **audio plugin development** — covering plugin types, parameter design, format/platform decisions, real-time constraints, and a two-layer technology choice (framework vs. core SDK) that presents the full landscape without bias toward any single tool.
 
-The interview is specialized for effects, instruments, utilities, and MIDI plugins. It covers parameter design, audio-thread constraints, channel layout, state recall, UI scope, plugin formats, target operating systems, and DAW requirements.
+The interview covers effects, instruments, utilities, MIDI tools, and standalone audio applications. The architecture is extensible — new references can be added to the `references/` folder without modifying the core skill.
 
-It also helps define common first-version exclusions such as tempo sync, modulation, preset browsers, custom graphics, sidechain inputs, oversampling, multi-band processing, or MIDI learn.
+## Examples Included
 
-## Example Included
+The skill ships with an annotated example showing the output for a simple digital delay plugin.
 
-The repository includes a [simple digital delay PRD](audio-plugin-project-planner/examples/delay-plugin-prd.md). It demonstrates how exact parameter ranges, defaults, DSP safety limits, and scope boundaries make an implementation request unambiguous.
-
-For the skill's self-contained usage notes and resource map, see [its own README](audio-plugin-project-planner/README.md).
+It explains why each section works — not just what it looks like. For the skill's self-contained usage notes and resource map, see [its own README](audio-plugin-project-planner/README.md).
 
 ---
 
 ## Install
 
-This repository uses the standard Agent Skills directory layout. The skill is located at `audio-plugin-project-planner/` and can be used by Agent Skills-compatible tools.
+The repository uses the Agent Skills directory layout. Copy the `audio-plugin-project-planner` folder into the skills directory for your tool.
 
 ### Codex
 
-Copy the skill directory into your personal skills directory:
+Copy the skill folder into your personal skills directory:
 
 ```bash
+# Clone this repo
 git clone https://github.com/TheAudioProgrammer/claude-audio-plugin-project-planner-skill.git
-cp -r claude-audio-plugin-project-planner-skill/audio-plugin-project-planner ~/.codex/skills/
+
+# Copy to Codex skills directory
+cp -r claude-audio-plugin-project-planner-skill/audio-plugin-project-planner ~/.codex/skills/audio-plugin-project-planner
 ```
 
 ### Claude Code
 
-Copy the same directory into Claude Code's skills directory:
+Copy the same skill folder into Claude Code's personal skills directory:
 
 ```bash
+# Clone this repo
 git clone https://github.com/TheAudioProgrammer/claude-audio-plugin-project-planner-skill.git
-cp -r claude-audio-plugin-project-planner-skill/audio-plugin-project-planner ~/.claude/skills/
+
+# Copy to Claude Code skills directory
+cp -r claude-audio-plugin-project-planner-skill/audio-plugin-project-planner ~/.claude/skills/audio-plugin-project-planner
 ```
 
-### Project-level use
+### Project-level (shared with teammates)
 
-Commit the skill folder to the repository where it should be shared, using the local Agent Skills configuration supported by your coding tool. The folder itself is portable:
+Commit the skill folder to your repo using the local Agent Skills location supported by your coding tool:
 
 ```text
 your-project/
@@ -80,36 +85,62 @@ your-project/
     └── examples/
 ```
 
+Anyone who clones the repo gets the skill automatically once their tool is configured to discover that location.
+
+---
+
 ## Trigger Phrases
 
-The skill applies to requests such as:
+The skill activates when you say things like:
 
-- “Help me plan an audio plugin.”
-- “I want to build a delay plugin.”
-- “Write a spec for this VST.”
-- “Scope a CLAP synth.”
-- “Plan this AU effect.”
-- “I have an idea for a DAW utility.”
+- "Help me plan an audio plugin"
+- "I want to build a delay plugin"
+- "Write a spec for this VST"
+- "Let's make a CLAP synth"
+- "Plan this AU effect"
+- "I have an idea for a DAW utility"
+
+It also triggers when you mention building a specific audio software type — plugin, effect, instrument, synth, VST, AU, CLAP, AAX, MIDI tool, or DAW utility — even without the word "plan."
+
+---
 
 ## Skill Structure
 
 ```text
 audio-plugin-project-planner/
-├── README.md
-├── SKILL.md
+├── README.md                                    # Skill overview and resource map
+├── SKILL.md                                     # Core interview workflow
 ├── references/
-│   ├── agent-project-guidance.md
-│   └── audio-plugin-interview.md
+│   ├── agent-project-guidance.md                # General and JUCE project guidance
+│   └── audio-plugin-interview.md                # Audio plugin domain guide
 └── examples/
-    └── delay-plugin-prd.md
+    └── delay-plugin-prd.md                      # Simple digital delay PRD
 ```
+
+## Extending with New Domains
+
+To add support for a new audio-related domain:
+
+1. Create a new file in `references/` following the pattern of `audio-plugin-interview.md`
+2. Include: why the domain needs special handling, domain-specific interview questions, technology trade-offs, and common out-of-scope items
+3. Add a routing line to `SKILL.md`
+
+---
 
 ## Compatibility
 
-The skill uses the [Agent Skills open standard](https://github.com/anthropics/agent-skills). It is designed for Codex, Claude Code, and other tools that discover `SKILL.md`-based skills.
+This skill follows the [Agent Skills open standard](https://github.com/anthropics/agent-skills) and works with:
+
+- **Claude Code** (terminal)
+- **OpenAI Codex** (uses the same SKILL.md format)
+- Any AI tool that supports the Agent Skills specification
+
+---
 
 ## License
 
 MIT
+
+---
 
 Built by [The Audio Programmer](https://theaudioprogrammer.com)
