@@ -2,7 +2,7 @@
 
 **Plan what you're building before you build it.**
 
-An AI skill that interviews you about your audio plugin project — what it should do, what it shouldn't, and the specific details that matter — then generates a focused PRD (Product Requirements Document) and optional AGENTS.md that AI coding tools can follow precisely.
+An AI skill that interviews you about your software project — what it should do, what it shouldn't, and the specific details that matter — then generates a focused PRD (Product Requirements Document) and optional AGENTS.md that AI coding tools can follow precisely.
 
 The difference between "build me a delay plugin" and a clean 200-line implementation vs. a bloated 2,000-line one? Usually a 20-minute conversation upfront.
 
@@ -12,9 +12,9 @@ Watch how it works here: https://youtu.be/ky9dfycg1J8
 
 ## What It Produces
 
-**PRD** (always) — A short, structured document that defines the goal, features with exact parameters, key behaviours, target formats and platforms, and what's explicitly out of scope. Designed for AI coding tools to consume, not to align a product team.
+**PRD** (always) — A short, structured document that defines the goal, features with exact parameters, key behaviours, and what's explicitly out of scope. Designed for AI coding tools to consume, not to align a product team.
 
-**AGENTS.md** (new projects, optional) — A settings file that tells AI coding tools your tech stack, architecture preferences, real-time constraints, code style, and project constraints. Think of it as onboarding a new team member before they write their first line of code.
+**AGENTS.md** (new projects, optional) — A settings file that tells AI coding tools your tech stack, architecture preferences, code style, and constraints. Think of it as onboarding a new team member before they write their first line of code.
 
 ## How It Works
 
@@ -22,26 +22,27 @@ The skill runs a guided interview in a strict sequence:
 
 1. **Orient** — Calibrates to your experience level (beginner or experienced)
 2. **New or existing?** — Determines whether to generate an AGENTS.md
-3. **Plugin type** — Identifies whether you're building an effect, instrument, utility, MIDI tool, or standalone audio application
-4. **Core features** — Captures what the plugin does with specific names, types, ranges, defaults, units, and safety constraints
-5. **The quirky question** — Asks what's unusual about *your* version of this plugin (the features that standard questions miss)
+3. **Domain detection** — Loads specialized interview guides for known domains (e.g., audio plugins)
+4. **Core features** — Captures what the project does with specific names, types, ranges, defaults, and units
+5. **The quirky question** — Asks what's unusual about *your* version of this project (the features that standard questions miss)
 6. **Confirmation gate** — Ensures nothing is missing before moving on
-7. **Out of scope** — Defines what the project should not do, preventing AI tools from over-building
-8. **Technology choices** — Framework, SDK, language, format, and platform decisions, presented as trade-offs rather than rankings
+7. **Out of scope** — Defines what the project should *not* do, preventing AI tools from over-building
+8. **Technology choices** — Framework and language decisions, presented as trade-offs rather than rankings
 9. **Generate** — Outputs the PRD (and optionally AGENTS.md)
-10. **Handoff** — Explains how to use the documents with an AI coding tool
+10. **Handoff** — Step-by-step instructions for using the documents with AI coding tools
 
 ## Domain Support
 
-The skill includes a specialized interview template for **audio plugin development** — covering plugin types, parameter design, format/platform decisions, real-time constraints, and a two-layer technology choice (framework vs. core SDK) that presents the full landscape without bias toward any single tool.
+The skill includes a specialized interview template for **audio plugin development** — covering plugin types, parameter design, format/platform decisions, and a two-layer technology choice (framework vs. core SDK) that presents the full landscape without bias toward any single tool.
 
-The interview covers effects, instruments, utilities, MIDI tools, and standalone audio applications. The architecture is extensible — new references can be added to the `references/` folder without modifying the core skill.
+For all other project types, the general interview flow handles web apps, CLI tools, APIs, mobile apps, and anything else. The architecture is extensible — new domain references can be added to the `references/` folder without modifying the core skill.
 
 ## Examples Included
 
-The skill ships with an annotated example showing the output for a simple digital delay plugin.
+The skill ships with two annotated examples showing the interview flow, the output, and "good vs. bad" comparisons:
 
-It explains why each section works — not just what it looks like. For the skill's self-contained usage notes and resource map, see [its own README](audio-plugin-project-planner/README.md).
+- **Task management web app** — Full greenfield flow (PRD + CLAUDE.md) using Next.js/TypeScript
+- **Simple digital delay plugin** — Single-feature PRD for an audio effect
 
 ---
 
@@ -93,14 +94,14 @@ Anyone who clones the repo gets the skill automatically once their tool is confi
 
 The skill activates when you say things like:
 
-- "Help me plan an audio plugin"
+- "Help me plan a new project"
 - "I want to build a delay plugin"
-- "Write a spec for this VST"
-- "Let's make a CLAP synth"
-- "Plan this AU effect"
-- "I have an idea for a DAW utility"
+- "Let's make a CLI tool for..."
+- "Write a spec for this feature"
+- "Create a CLAUDE.md"
+- "I have an idea for an app"
 
-It also triggers when you mention building a specific audio software type — plugin, effect, instrument, synth, VST, AU, CLAP, AAX, MIDI tool, or DAW utility — even without the word "plan."
+It also triggers when you mention building a specific software type — plugin, app, tool, extension, CLI, library, API, bot, or service — even without the word "plan."
 
 ---
 
