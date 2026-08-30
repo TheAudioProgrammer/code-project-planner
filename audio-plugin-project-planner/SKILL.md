@@ -15,7 +15,7 @@ Use this sequence, but combine related questions when the user has already suppl
 2. Identify the plugin type: effect, instrument, utility, MIDI effect, or standalone audio application.
 3. Read [the audio-plugin guide](references/audio-plugin-interview.md). Capture the audio and UI requirements before discussing technologies.
 4. Build a complete list of user-facing parameters. For every parameter capture name, range, default, unit, automation behavior, and safety constraints. Propose all missing defaults in one table rather than one question per control.
-5. Ask this as a dedicated question: “¿Hay algo inusual o peculiar que quieras que haga —algo que probablemente no se me ocurriría preguntar?”
+5. Ask this as a dedicated question: “Is there anything unusual or quirky you want this to do — something I probably wouldn't think to ask about? Sometimes the most important feature is the one that doesn't fit neatly into a category.”
 6. Confirm that the feature set is complete. If something new appears, return to parameters and behavior.
 7. Define explicit out-of-scope items. Offer only the most relevant options from the guide if the user needs help.
 8. Determine formats, target OSes, DAWs, and distribution intent. Only then discuss framework versus direct SDK; use the two-layer decision in the guide.
